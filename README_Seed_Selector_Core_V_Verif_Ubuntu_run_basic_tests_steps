@@ -1,0 +1,350 @@
+#################################################################################
+#Important requirements:
+#    -Have csh installed.
+#    -Link your /bin/sh to /bin bash
+#################################################################################
+
+#################################################################################
+### Source your workspace tools (Cadence in this case)
+#################################################################################
+
+#################################################################################
+#Clone your repo, for example for each Core:
+#################################################################################
+#CV32E40P (only one working with Seed Selector for now)
+git clone -b master https://github.com/adrianjfallas/seedselector_core-v-verif.git seedselector_cv32e40p
+#CV32E40X
+git clone -b cv32e40x/release https://github.com/adrianjfallas/seedselector_core-v-verif.git seedselector_cv32e40x
+#CV32E40S
+git clone -b cv32e40s/dev https://github.com/adrianjfallas/seedselector_core-v-verif.git seedselector_cv32e40s
+
+#################################################################################
+### IMPORTANT:set env variables adjustments: exports and unset (this may vary)
+### For more details see the OPENHWGROUP CORE-V-VERIF docs
+### github.com/openhwgroup/core-v-verif/blob/master/mk/README.md
+### github.com/openhwgroup/core-v-verif/blob/master/mk/TOOLCHAIN.md
+#################################################################################
+#CV32E40P (only one working with Seed Selector for now)
+export CV_SW_MARCH=rv32imc_zicsr
+export CV_SW_TOOLCHAIN=/nis/asic/cr_dump2/fallasad/SeedSelector_Ubuntu/corev-openhw-gcc-ubuntu2004-20230622
+export CV_SW_PREFIX=riscv32-corev-elf-
+export CV_CORE=cv32e40p
+export CV_SIMULATOR=xrun
+export CORE_V_VERIF=/nis/asic/cr_dump2/fallasad/SeedSelector_Ubuntu/seedselector_${CV_CORE}/
+unset GCC_HOME
+unset COMPILER_PATH
+unset GCC_EXEC_PREFIX
+#CV32E40X
+export CV_SW_MARCH=rv32imc_zicsr
+export CV_SW_TOOLCHAIN=/nis/asic/cr_dump2/fallasad/SeedSelector_Ubuntu/corev-openhw-gcc-ubuntu2004-20230622
+export CV_SW_PREFIX=riscv32-corev-elf-
+export CV_CORE=cv32e40x
+export CV_SIMULATOR=xrun
+export CORE_V_VERIF=/nis/asic/cr_dump2/fallasad/SeedSelector_Ubuntu/seedselector_${CV_CORE}/
+unset GCC_HOME
+unset COMPILER_PATH
+unset GCC_EXEC_PREFIX
+#CV32E40S
+export CV_SW_MARCH=rv32im_zicsr_zifencei_zbb_zcb_zba_zbs_zcmp_zbc_zcmt
+export CV_SW_TOOLCHAIN=/nis/asic/cr_dump2/fallasad/SeedSelector_Ubuntu/corev-openhw-gcc-ubuntu2004-20230622
+export CV_SW_PREFIX=riscv32-corev-elf-
+export CV_CORE=cv32e40s
+export CV_SIMULATOR=xrun
+export CORE_V_VERIF=/nis/asic/cr_dump2/fallasad/SeedSelector_Ubuntu/seedselector_${CV_CORE}/
+unset GCC_HOME
+unset COMPILER_PATH
+unset GCC_EXEC_PREFIX
+
+#################################################################################
+###After, that you should be god to go, run a hello-world test
+#################################################################################
+#CV32E40P (only one working with Seed Selector for now)
+[ROSE][master][../seedselector_cv32e40p][0]cd cv32e40p/sim/uvmt/
+/nis/asic/cr_dump2/fallasad/SeedSelector_Ubuntu/seedselector_cv32e40p/cv32e40p/sim/uvmt
+[ROSE][master][../cv32e40p/sim/uvmt][0]make SIMULATOR=xrun hello-world USE_ISS=NO
+...
+UVM_INFO @ 16.800 ns : uvmt_cv32e40p_base_test.sv(281) uvm_test_top [BASE TEST] set load_instr_mem
+UVM_INFO @ 141.300 ns : uvmt_cv32e40p_firmware_test.sv(120) uvm_test_top [TEST] Started RUN
+
+HELLO WORLD!!!
+This is the OpenHW Group CV32E40P CORE-V processor core.
+CV32E40P is a RISC-V ISA compliant core with the following attributes:
+	mvendorid = 0x602
+	marchid   = 0x4
+	mimpid    = 0x0
+	misa      = 0x40001104
+	XLEN is 32-bits
+	Supported Instructions Extensions: MIC
+
+UVM_INFO @ 77169.300 ns : uvmt_cv32e40p_firmware_test.sv(129) uvm_test_top [TEST] Finished RUN: exit status is 0
+UVM_INFO @ 77169.300 ns : uvm_objection.svh(1271) reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+UVM_INFO @ 77169.300 ns : uvmt_cv32e40p_base_test.sv(332) uvm_test_top [END_OF_TEST] DUT WRAPPER virtual peripheral signaled exit_value=0.
+UVM_INFO @ 77169.300 ns : uvm_report_catcher.svh(705) reporter [UVM/REPORT/CATCHER]
+--- UVM Report catcher Summary ---
+
+
+Number of demoted UVM_FATAL reports  :    0
+Number of demoted UVM_ERROR reports  :    0
+Number of demoted UVM_WARNING reports:    0
+Number of caught UVM_FATAL reports   :    0
+Number of caught UVM_ERROR reports   :    0
+Number of caught UVM_WARNING reports :    0
+
+UVM_INFO @ 77169.300 ns : uvm_report_server.svh(847) reporter [UVM/REPORT/SERVER]
+--- UVM Report Summary ---
+
+Quit count :     0 of     5
+** Report counts by severity
+UVM_INFO :   54
+UVM_WARNING :    0
+UVM_ERROR :    0
+UVM_FATAL :    0
+** Report counts by id
+[BASE TEST]     4
+[CLKNRST]     4
+[CORE_CNTRL_IF]     1
+[DEBUGCOVG]     1
+[END_OF_TEST]     1
+[INTERRUPTCOVG]     1
+[MEMREADMEMH]     1
+[OBIVPSEQ]    22
+[OBI_MEMORY_MON]     4
+[OVPWRAP]     1
+[RNTST]     1
+[RST_VSEQ]     3
+[Step-andCompare]     1
+[TEST]     3
+[TEST_CFG]     1
+[TEST_DONE]     1
+[UVM/RELNOTES]     1
+[UVM/REPORT/CATCHER]     1
+[UVME_CV32E40P_ENV]     1
+[rv32isa_covg]     1
+
+xmsim: *W,SLFINV: Call to process::self() from invalid process; returning null.
+
+uvmt_cv32e40p_tb.end_of_test: *** Test Summary ***
+
+    PPPPPPP    AAAAAA    SSSSSS    SSSSSS   EEEEEEEE  DDDDDDD
+    PP    PP  AA    AA  SS    SS  SS    SS  EE        DD    DD
+    PP    PP  AA    AA  SS        SS        EE        DD    DD
+    PPPPPPP   AAAAAAAA   SSSSSS    SSSSSS   EEEEE     DD    DD
+    PP        AA    AA        SS        SS  EE        DD    DD
+    PP        AA    AA  SS    SS  SS    SS  EE        DD    DD
+    PP        AA    AA   SSSSSS    SSSSSS   EEEEEEEE  DDDDDDD
+    ----------------------------------------------------------
+                        SIMULATION PASSED
+    ----------------------------------------------------------
+Simulation complete via $finish(1) at time 77169300 PS + 59
+/p/svl/p1/proj_tools/cadence/xlm-20.09.011/tools/methodology/UVM/CDNS-1.2-ML/sv/src/base/uvm_root.svh:551     $finish;
+xcelium> exit
+
+coverage setup:
+  workdir  :  ./cov_work
+  scope    :  scope
+  testname :  hello-world
+TOOL:	xrun(64)	20.09-s011: Exiting on Aug 06, 2023 at 15:34:32 PDT  (total: 00:00:17)
+make[1]: [/nis/asic/cr_dump2/fallasad/SeedSelector_Ubuntu/seedselector_cv32e40p/mk/uvmt/xrun.mk:360: test] Error 1 (ignored)
+make[1]: Leaving directory '/nis/asic/cr_dump2/fallasad/SeedSelector_Ubuntu/seedselector_cv32e40p/cv32e40p/sim/uvmt'
+#CV32E40X
+[ROSE][cv32e40x/release][../seedselector_cv32e40x][0]cd cv32e40x/sim/uvmt/
+/nis/asic/cr_dump2/fallasad/SeedSelector_Ubuntu/seedselector_cv32e40x/cv32e40x/sim/uvmt
+[ROSE][cv32e40x/release][../cv32e40x/sim/uvmt][0]make SIMULATOR=xrun hello-world USE_ISS=NO
+...
+UVM_INFO @ 16.800 ns : uvmt_cv32e40x_base_test.sv(294) uvm_test_top [BASE TEST] set load_instr_mem
+UVM_INFO @ 114.300 ns : uvmt_cv32e40x_firmware_test.sv(137) uvm_test_top [TEST] Started RUN
+
+HELLO WORLD!!!
+This is the OpenHW Group CV32E40X CORE-V processor core.
+CV32E40X is a RISC-V ISA compliant core with the following attributes:
+	mvendorid = 0x602
+	marchid   = 0x14
+	mimpid    = 0x0
+	misa      = 0x40001104
+	XLEN is 32-bits
+	Supported Instructions Extensions: MIC
+
+UVM_INFO @ 158913.300 ns : uvmt_cv32e40x_firmware_test.sv(146) uvm_test_top [TEST] Finished RUN: exit status is 0
+UVM_INFO @ 158913.300 ns : uvm_objection.svh(1271) reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+UVM_INFO @ 158913.300 ns : uvme_cv32e40x_buserr_sb.sv(230) uvm_test_top.env.buserr_sb [BUSERRSB] received 0 D-side 'err' transactions
+UVM_INFO @ 158913.300 ns : uvme_cv32e40x_buserr_sb.sv(231) uvm_test_top.env.buserr_sb [BUSERRSB] received 0 D-side 'first err' transactions
+UVM_INFO @ 158913.300 ns : uvme_cv32e40x_buserr_sb.sv(232) uvm_test_top.env.buserr_sb [BUSERRSB] observed 0 rvfi nmi handler entries
+UVM_INFO @ 158913.300 ns : uvme_cv32e40x_buserr_sb.sv(233) uvm_test_top.env.buserr_sb [BUSERRSB] received 0 I-side 'err' transactions
+UVM_INFO @ 158913.300 ns : uvme_cv32e40x_buserr_sb.sv(234) uvm_test_top.env.buserr_sb [BUSERRSB] retired 0 expectedly ifault instructions
+UVM_INFO @ 158913.300 ns : uvme_cv32e40x_buserr_sb.sv(235) uvm_test_top.env.buserr_sb [BUSERRSB] retired 0 expectedly ifault instructions during debug
+UVM_INFO @ 158913.300 ns : uvme_cv32e40x_buserr_sb.sv(236) uvm_test_top.env.buserr_sb [BUSERRSB] observed 0 rvfi ifault handler entries
+UVM_INFO @ 158913.300 ns : uvme_cv32e40x_core_sb.sv(190) uvm_test_top.env.core_sb [CORESB] checked 0 instruction retirements
+UVM_INFO @ 158913.300 ns : uvme_cv32e40x_core_sb.sv(191) uvm_test_top.env.core_sb [CORESB] checked 0 GPR updates
+UVM_INFO @ 158913.300 ns : uvme_cv32e40x_core_sb.sv(192) uvm_test_top.env.core_sb [CORESB] checked 0 CSRs
+UVM_INFO @ 158913.300 ns : uvma_pma_sb.sv(226) uvm_test_top.env.pma_agent.scoreboard [PMASB] checked 12440 OBI I transactions
+UVM_INFO @ 158913.300 ns : uvma_pma_sb.sv(227) uvm_test_top.env.pma_agent.scoreboard [PMASB] checked 3550 OBI D transactions
+UVM_INFO @ 158913.300 ns : uvmt_cv32e40x_base_test.sv(345) uvm_test_top [END_OF_TEST] DUT WRAPPER virtual peripheral signaled exit_value=0.
+UVM_INFO @ 158913.300 ns : uvm_report_catcher.svh(705) reporter [UVM/REPORT/CATCHER]
+--- UVM Report catcher Summary ---
+
+
+Number of demoted UVM_FATAL reports  :    0
+Number of demoted UVM_ERROR reports  :    0
+Number of demoted UVM_WARNING reports:    0
+Number of caught UVM_FATAL reports   :    0
+Number of caught UVM_ERROR reports   :    0
+Number of caught UVM_WARNING reports :    0
+
+UVM_INFO @ 158913.300 ns : uvm_report_server.svh(847) reporter [UVM/REPORT/SERVER]
+--- UVM Report Summary ---
+
+Quit count :     0 of     5
+** Report counts by severity
+UVM_INFO :   85
+UVM_WARNING :    0
+UVM_ERROR :    0
+UVM_FATAL :    0
+** Report counts by id
+[BASE TEST]     5
+[BUSERRSB]     7
+[CFG]     1
+[CLKNRST]     4
+[CORESB]     3
+[CV32E40XCORECTRLAGT]     1
+[DEBUGCOVG]     1
+[END_OF_TEST]     1
+[FENCEI_MON]     2
+[FETCHTOGGLE]     1
+[INTERRUPTCOVG]     1
+[MEMREADMEMH]     1
+[OBIVPSEQ]    37
+[OBI_MEMORY_MON]     4
+[OVPWRAP]     1
+[PMASB]     2
+[RNTST]     1
+[RST_VSEQ]     3
+[RVVIOVPAGT]     1
+[TEST]     4
+[TEST_CFG]     1
+[TEST_DONE]     1
+[UVM/RELNOTES]     1
+[UVM/REPORT/CATCHER]     1
+
+xmsim: *W,SLFINV: Call to process::self() from invalid process; returning null.
+
+uvmt_cv32e40x_tb.end_of_test: *** Test Summary ***
+
+    PPPPPPP    AAAAAA    SSSSSS    SSSSSS   EEEEEEEE  DDDDDDD
+    PP    PP  AA    AA  SS    SS  SS    SS  EE        DD    DD
+    PP    PP  AA    AA  SS        SS        EE        DD    DD
+    PPPPPPP   AAAAAAAA   SSSSSS    SSSSSS   EEEEE     DD    DD
+    PP        AA    AA        SS        SS  EE        DD    DD
+    PP        AA    AA  SS    SS  SS    SS  EE        DD    DD
+    PP        AA    AA   SSSSSS    SSSSSS   EEEEEEEE  DDDDDDD
+    ----------------------------------------------------------
+                        SIMULATION PASSED
+    ----------------------------------------------------------
+Simulation complete via $finish(1) at time 158913300 PS + 59
+/p/svl/p1/proj_tools/cadence/xlm-20.09.011/tools/methodology/UVM/CDNS-1.2-ML/sv/src/base/uvm_root.svh:551     $finish;
+xcelium> exit
+
+coverage setup:
+  workdir  :  ./cov_work
+  scope    :  scope
+  testname :  hello-world
+TOOL:	xrun(64)	20.09-s011: Exiting on Aug 06, 2023 at 13:51:33 PDT  (total: 00:00:32)
+make[1]: [/nis/asic/cr_dump2/fallasad/SeedSelector_Ubuntu/seedselector_cv32e40x/mk/uvmt/xrun.mk:357: test] Error 1 (ignored)
+make[1]: Leaving directory '/nis/asic/cr_dump2/fallasad/SeedSelector_Ubuntu/seedselector_cv32e40x/cv32e40x/sim/uvmt'
+[ROSE][cv32e40x/release][../cv32e40x/sim/uvmt][0]
+#CV32E40S
+[ROSE][cv32e40s/dev][../seedselector_cv32e40s][0]cd cv32e40s/sim/uvmt/
+/nis/asic/cr_dump2/fallasad/SeedSelector_Ubuntu/seedselector_cv32e40s/cv32e40s/sim/uvmt
+[ROSE][cv32e40s/dev][../cv32e40s/sim/uvmt][0]make SIMULATOR=xrun hello-world USE_ISS=NO
+...
+UVM_INFO @ 16.800 ns : uvmt_cv32e40s_base_test.sv(297) uvm_test_top [BASE TEST] set load_instr_mem
+UVM_INFO @ 114.300 ns : uvmt_cv32e40s_firmware_test.sv(167) uvm_test_top [TEST] Started RUN
+
+HELLO WORLD!!!
+This is the OpenHW Group CV32E40S CORE-V processor core.
+CV32E40S is a RISC-V ISA compliant core with the following attributes:
+	mvendorid = 0x602
+	marchid   = 0x15
+	mimpid    = 0x0
+	misa      = 0x40901104
+	XLEN is 32-bits
+	Supported Instructions Extensions: XMIC
+	This machine supports USER mode.
+	This machine supports non-standard instructions.
+
+UVM_INFO @ 111354.300 ns : uvmt_cv32e40s_firmware_test.sv(176) uvm_test_top [TEST] Finished RUN: exit status is 0
+UVM_INFO @ 111354.300 ns : uvm_objection.svh(1271) reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+UVM_INFO @ 111354.300 ns : uvme_cv32e40s_buserr_sb.sv(243) uvm_test_top.env.buserr_sb [BUSERRSB] received 0 D-side 'err' transactions
+UVM_INFO @ 111354.300 ns : uvme_cv32e40s_buserr_sb.sv(244) uvm_test_top.env.buserr_sb [BUSERRSB] received 0 D-side 'first err' transactions
+UVM_INFO @ 111354.300 ns : uvme_cv32e40s_buserr_sb.sv(245) uvm_test_top.env.buserr_sb [BUSERRSB] observed 0 rvfi nmi handler entries
+UVM_INFO @ 111354.300 ns : uvme_cv32e40s_buserr_sb.sv(246) uvm_test_top.env.buserr_sb [BUSERRSB] received 0 I-side 'err' transactions
+UVM_INFO @ 111354.300 ns : uvme_cv32e40s_buserr_sb.sv(247) uvm_test_top.env.buserr_sb [BUSERRSB] retired 0 expectedly ifault instructions
+UVM_INFO @ 111354.300 ns : uvme_cv32e40s_buserr_sb.sv(248) uvm_test_top.env.buserr_sb [BUSERRSB] retired 0 expectedly ifault instructions during debug
+UVM_INFO @ 111354.300 ns : uvme_cv32e40s_buserr_sb.sv(249) uvm_test_top.env.buserr_sb [BUSERRSB] observed 0 rvfi ifault handler entries
+UVM_INFO @ 111354.300 ns : uvma_pma_sb.sv(231) uvm_test_top.env.pma_agent.scoreboard [PMASB] checked 16838 OBI I transactions
+UVM_INFO @ 111354.300 ns : uvma_pma_sb.sv(232) uvm_test_top.env.pma_agent.scoreboard [PMASB] checked 4291 OBI D transactions
+UVM_INFO @ 111354.300 ns : uvmt_cv32e40s_base_test.sv(348) uvm_test_top [END_OF_TEST] DUT WRAPPER virtual peripheral signaled exit_value=0.
+UVM_INFO @ 111354.300 ns : uvm_report_catcher.svh(705) reporter [UVM/REPORT/CATCHER]
+--- UVM Report catcher Summary ---
+
+
+Number of demoted UVM_FATAL reports  :    0
+Number of demoted UVM_ERROR reports  :    0
+Number of demoted UVM_WARNING reports:    0
+Number of caught UVM_FATAL reports   :    0
+Number of caught UVM_ERROR reports   :    0
+Number of caught UVM_WARNING reports :    0
+
+UVM_INFO @ 111354.300 ns : uvm_report_server.svh(847) reporter [UVM/REPORT/SERVER]
+--- UVM Report Summary ---
+
+Quit count :     0 of     5
+** Report counts by severity
+UVM_INFO :   79
+UVM_WARNING :    0
+UVM_ERROR :    0
+UVM_FATAL :    0
+** Report counts by id
+[BASE TEST]     5
+[BUSERRSB]     7
+[CFG]     1
+[CLKNRST]     3
+[CV32E40SCORECTRLAGT]     1
+[DEBUGCOVG]     1
+[END_OF_TEST]     1
+[FENCEI_MON]     2
+[FETCHTOGGLE]     1
+[INTERRUPTCOVG]     1
+[MEMREADMEMH]     1
+[OBIVPSEQ]    37
+[OBI_MEMORY_MON]     4
+[PMASB]     2
+[RNTST]     1
+[RST_VSEQ]     3
+[TEST]     4
+[TEST_CFG]     1
+[TEST_DONE]     1
+[UVM/RELNOTES]     1
+[UVM/REPORT/CATCHER]     1
+
+xmsim: *W,SLFINV: Call to process::self() from invalid process; returning null.
+    PPPPPPP    AAAAAA    SSSSSS    SSSSSS   EEEEEEEE  DDDDDDD
+    PP    PP  AA    AA  SS    SS  SS    SS  EE        DD    DD
+    PP    PP  AA    AA  SS        SS        EE        DD    DD
+    PPPPPPP   AAAAAAAA   SSSSSS    SSSSSS   EEEEE     DD    DD
+    PP        AA    AA        SS        SS  EE        DD    DD
+    PP        AA    AA  SS    SS  SS    SS  EE        DD    DD
+    PP        AA    AA   SSSSSS    SSSSSS   EEEEEEEE  DDDDDDD
+    ----------------------------------------------------------
+                        SIMULATION PASSED
+    ----------------------------------------------------------
+Simulation complete via $finish(1) at time 111354300 PS + 59
+/p/svl/p1/proj_tools/cadence/xlm-20.09.011/tools/methodology/UVM/CDNS-1.2-ML/sv/src/base/uvm_root.svh:551     $finish;
+xcelium> exit
+
+coverage setup:
+  workdir  :  ./cov_work
+  scope    :  scope
+  testname :  hello-world
+TOOL:	xrun(64)	20.09-s011: Exiting on Aug 19, 2023 at 13:13:19 PDT  (total: 00:00:39)
+make[1]: [/nis/asic/cr_dump2/fallasad/SeedSelector_Ubuntu/seedselector_cv32e40s/mk/uvmt/xrun.mk:420: test] Error 1 (ignored)
+make[1]: Leaving directory '/nis/asic/cr_dump2/fallasad/SeedSelector_Ubuntu/seedselector_cv32e40s/cv32e40s/sim/uvmt'

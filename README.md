@@ -18,7 +18,9 @@
 
 -->
 
-# core-v-verif
+# seed selector core-v-verif
+Coverage collection speed up method integrated to the awesoe CORE-V-VERIF project.
+
 Functional verification project for the CORE-V family of RISC-V cores.
 
 <!--

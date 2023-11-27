@@ -24,7 +24,7 @@ set_glitch_strobe 1ps
 set_parameterized_module_coverage -type_parameters_only
 
 # Enable coverage for expressions containing inside operator
-set_expr_scoring -inside
+#set_expr_scoring -inside
 
 # ----------------------------------------------------------------------------------
 # FSM coverage configruation

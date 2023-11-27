@@ -1,0 +1,59 @@
+#!/usr/bin/perl -w
+use File::Basename;
+
+#Description:  Merges all coverage found underneath $session. There is a maxdepth to find.
+#Usage:        Run script in directory you want to merge or pass it as an argument.
+#Arg1:         Path where the files are found.
+#Arg2:         Name of the out merge file. Will always be found at $session. Default is 'automerge'.
+
+
+my $session = undef;
+my $merge_out = 'automerge';
+#my $merge_kind = 'primary_run';
+my $merge_kind = 'union_all';
+
+if(@ARGV){
+   $session = $ARGV[0];
+   if($ARGV[1]){
+      $merge_out = $ARGV[1];
+   }
+} else {
+   $session = `pwd`;
+};
+chomp $session;
+print "Merging path: $session \n";
+print "Out file name: $merge_out \n";
+
+imcMergeCov($session);
+
+sub imcMergeCov {
+   my ($currentSession) = @_;
+   chomp $currentSession;
+   my $maxdepth = 5;
+   my $find_cmd = "find $currentSession -maxdepth $maxdepth -name \"*.ucd\"";
+   my $runfile = "$currentSession/autorunfile";
+   my @merge_list = ();
+
+   open (my $fh, '-|', $find_cmd) or die "Cannot run 'find' command.";
+   while(<$fh>){
+      if($_ !~ "merged_ucds"){
+            #print "Merging $_";
+            my $dirname = dirname($_);
+            push(@merge_list, $dirname);
+      }
+   }
+   close $fh;
+   if(@merge_list) {
+      open (my $a, '>', $runfile) or die "Cannot write to file $runfile.";
+      foreach my $l (@merge_list) {
+	 print $a "$l\n";
+      }
+      close $a;
+      system("echo  merge -runfile $runfile -out $currentSession/$merge_out -overwrite -run_order as_specified -initial_model $merge_kind > $currentSession/automerge.cmd");
+      system("imc -exec $currentSession/automerge.cmd");
+   } else {
+      print "Nothing to merge. You may want to increase maxdepth, currently $maxdepth\n";
+   }
+}
+
+1;

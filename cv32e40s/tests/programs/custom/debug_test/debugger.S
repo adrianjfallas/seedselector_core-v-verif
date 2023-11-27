@@ -154,7 +154,7 @@ _debugger_fence:
     fence
     nop
     nop
-    fence.i
+    //fence.i
     nop
     nop
     j _debugger_end
