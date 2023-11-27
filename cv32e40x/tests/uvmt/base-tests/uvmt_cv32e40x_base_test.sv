@@ -20,6 +20,7 @@
 `ifndef __UVMT_CV32E40X_BASE_TEST_SV__
 `define __UVMT_CV32E40X_BASE_TEST_SV__
 
+`include "seed_selector/tree_cov_model_base.sv"
 
 /**
  * Abstract component from which all other CV32E40X test cases must
@@ -35,6 +36,9 @@ class uvmt_cv32e40x_base_test_c extends uvm_test;
    rand uvme_cv32e40x_cntxt_c      env_cntxt;
    uvml_logs_rs_text_c             rs       ;
    uvml_logs_reg_logger_cbs_c      reg_cbs  ;
+
+   // Seed selector
+   int seed_selector_result;
 
    // Components
    uvme_cv32e40x_env_c   env       ;
@@ -390,10 +394,53 @@ endfunction : create_cfg
 
 function void uvmt_cv32e40x_base_test_c::randomize_test();
 
+   string current_test_name;
+   int current_test_name_id;
    test_cfg.process_cli_args();
    `uvm_info("TEST", "randomize test", UVM_LOW);
    if (!this.randomize()) begin
       `uvm_fatal("BASE TEST", "Failed to randomize test");
+   end
+
+   if ($test$plusargs("SEED_SELECTOR")) begin
+      if ($test$plusargs("SEED_SELECTOR_debug_test_reset")) begin
+         current_test_name = "debug_test_reset";
+         current_test_name_id = 2;
+      end
+      else if ($test$plusargs("SEED_SELECTOR_debug_test_trigger")) begin
+         current_test_name = "debug_test_trigger";
+         current_test_name_id = 3;
+      end
+      else if ($test$plusargs("SEED_SELECTOR_debug_test_boot_set")) begin
+         current_test_name = "debug_test_boot_set";
+         current_test_name_id = 4;
+      end
+      else if ($test$plusargs("SEED_SELECTOR_debug_test_known_miscompares")) begin
+         current_test_name = "debug_test_known_miscompares";
+         current_test_name_id = 5;
+      end
+      else if ($test$plusargs("SEED_SELECTOR_debug_test")) begin
+         current_test_name = "debug_test";
+         current_test_name_id = 1;
+      end
+      else if ($test$plusargs("SEED_SELECTOR_corev_rand_debug_single_step")) begin
+         current_test_name = "corev_rand_debug_single_step";
+         current_test_name_id = 7;
+      end
+      else if ($test$plusargs("SEED_SELECTOR_corev_rand_debug_ebreak")) begin
+         current_test_name = "corev_rand_debug_ebreak";
+         current_test_name_id = 8;
+      end
+      else if ($test$plusargs("SEED_SELECTOR_corev_rand_debug")) begin
+         current_test_name = "corev_rand_debug";
+         current_test_name_id = 6;
+      end
+      else begin
+         current_test_name = "unsupported_test";
+         current_test_name_id = 777;
+      end
+      `uvm_info("BASE TEST", $sformatf("SEED_SELECTOR: ANALYZING SEED for %s", current_test_name), UVM_LOW)
+      `include "seed_selector/seed_selector.sv"
    end
 
 endfunction : randomize_test
