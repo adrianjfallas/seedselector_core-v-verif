@@ -19,6 +19,9 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+`ifndef SEED_SELECTOR
+   `define SEED_SELECTOR 0
+`endif
 
 class uvme_debug_covg extends uvm_component;
 
@@ -475,16 +478,464 @@ task uvme_debug_covg::run_phase(uvm_phase phase);
 endtask : run_phase
 
 task uvme_debug_covg::sample_debug_req_i();
+
+  //string debug_mode_state_val = "NEITHER";
+
   while(1) begin
     @(posedge cntxt.debug_cov_vif.mon_cb.debug_req_i);
+
+    //if(`SEED_SELECTOR == 1) begin
+      //if(cntxt.debug_cov_vif.mon_cb.ctrl_fsm_cs == cv32e40p_pkg::RESET) begin
+      //   debug_mode_state_val = "RESET";
+      //end else if(cntxt.debug_cov_vif.mon_cb.ctrl_fsm_cs == cv32e40p_pkg::BOOT_SET) begin
+      //   debug_mode_state_val = "BOOT_SET";
+      //end else if(cntxt.debug_cov_vif.mon_cb.ctrl_fsm_cs == cv32e40p_pkg::SLEEP) begin
+      //   debug_mode_state_val = "SLEEP";
+      //end else if(cntxt.debug_cov_vif.mon_cb.ctrl_fsm_cs == cv32e40p_pkg::WAIT_SLEEP) begin
+      //   debug_mode_state_val = "WAIT_SLEEP";
+      //end else if(cntxt.debug_cov_vif.mon_cb.ctrl_fsm_cs == cv32e40p_pkg::FIRST_FETCH) begin
+      //   debug_mode_state_val = "FIRST_FETCH";
+      //end else if(cntxt.debug_cov_vif.mon_cb.ctrl_fsm_cs == cv32e40p_pkg::DECODE) begin
+      //   debug_mode_state_val = "DECODE";
+      //end else if(cntxt.debug_cov_vif.mon_cb.ctrl_fsm_cs == cv32e40p_pkg::FLUSH_EX) begin
+      //   debug_mode_state_val = "FLUSH_EX";
+      //end else if(cntxt.debug_cov_vif.mon_cb.ctrl_fsm_cs == cv32e40p_pkg::FLUSH_WB) begin
+      //   debug_mode_state_val = "FLUSH_WB";
+      //end else if(cntxt.debug_cov_vif.mon_cb.ctrl_fsm_cs == cv32e40p_pkg::XRET_JUMP) begin
+      //   debug_mode_state_val = "XRET_JUMP";
+      //end else if(cntxt.debug_cov_vif.mon_cb.ctrl_fsm_cs == cv32e40p_pkg::DBG_TAKEN_ID) begin
+      //   debug_mode_state_val = "DBG_TAKEN_ID";
+      //end else if(cntxt.debug_cov_vif.mon_cb.ctrl_fsm_cs == cv32e40p_pkg::DBG_TAKEN_IF) begin
+      //   debug_mode_state_val = "DBG_TAKEN_IF";
+      //end else if(cntxt.debug_cov_vif.mon_cb.ctrl_fsm_cs == cv32e40p_pkg::DBG_FLUSH) begin
+      //   debug_mode_state_val = "DBG_FLUSH";
+      //end else if(cntxt.debug_cov_vif.mon_cb.ctrl_fsm_cs == cv32e40p_pkg::DBG_WAIT_BRANCH) begin
+      //   debug_mode_state_val = "DBG_WAIT_BRANCH";
+      //end
+      //`uvm_info("DEBUG_COVG",$psprintf("-------------------------------------------------------------------------------"), UVM_LOW)
+      //`uvm_info("DEBUG_COVG",$psprintf("##############  cg_debug_mode_ext  ##############"), UVM_LOW)
+      //`uvm_info("DEBUG_COVG",$psprintf("state                : %s", debug_mode_state_val), UVM_LOW)
+
+      //`uvm_info("DEBUGCOVG",$psprintf("SEED_SELECTOR1: ANALYZING SEED"), UVM_LOW)
+      //`uvm_info("DEBUGCOVG",$psprintf("SEED_SELECTOR1: APPROVED"), UVM_LOW)
+      //`uvm_fatal(get_type_name(), "SEED_SELECTOR: DISCARDED")
+      //`include "seed_selector/seed_selector.sv"
+      //`uvm_info("DEBUGCOVG", "HERE I AM1", UVM_LOW);
+    //end
 
     cg_debug_mode_ext.sample();
   end
 endtask : sample_debug_req_i
 
 task uvme_debug_covg::sample_clk_i();
+
+  //int cebreak_val = 0;
+  //int ebreakm_set_val = 0;
+  //int debug_mode_q_val = 0;
+  //int machine_mode_q_val = 0;
+  //int cebreak_with_ebreakm_val = 0;
+  //int cebreak_in_debug_val = 0;
+  //int ebreak_val = 0;
+  //int ebreak_with_ebreakm_val = 0;
+  //int ebreak_in_debug_val = 0;
+  //int ebreakm_clear_val = 0;
+  //int step_val = 0;
+  //int no_step_val = 0;
+  //int step_no_dbg_val = 0;
+  //int ebreak_regular_nodebug_val = 0;
+  //int ebreak_step_nodebug_val = 0;
+  //int cebreak_regular_nodebug_val = 0;
+  //int cebreak_step_nodebug_val = 0;
+  //int trigger_val = 0;
+  //int trigger_dis_val = 0;
+  //int trigger_match_val = 0;
+  //int trigger_no_match_val = 0;
+  //int ok_match_val = 0;
+  //int addr_match_val = 0;
+  //int m_match_without_en_val = 0;
+  //int d_match_without_en_val = 0;
+  //int d_match_with_en_val = 0;
+  //int illegal_insn_q_val = 0;
+  //int ex_in_debug_illegal_val = 0;
+  //int ecall_insn_i_val = 0;
+  //int ex_in_debug_ecall_val = 0;
+  //int irq_i_val = 0;
+  //int prev_irq_i_val = 0;
+  //int irq_i_trans_val = 0;
+  //int ex_in_debug_irq_val = 0;
+  //int is_wfi_val = 0;
+  //int dm_wfi_debug_val = 0;
+  //int in_wfi_val = 0;
+  //int debug_req_i_val = 0;
+  //int prev_debug_req_i_val = 0;
+  //int debug_req_i_trans_val = 0;
+  //int dm_wfi_req_val = 0;
+  //int illegal_insn_i_val = 0;
+  //int dpc_will_hit_val = 0;
+  //int stepie_val = 0;
+  //int mmode_step_val = 0;
+  //int mmode_step_trigger_match_val = 0;
+  //int mmode_step_wfi_val = 0;
+  //int mmode_step_stepie_val = 0;
+  //int mmode_step_illegal_val = 0;
+  //int mmode_step_next_pc_will_match_val = 0;
+  //int is_dret_val = 0;
+  //int dret_ex_val = 0;
+  //int branch_in_decode_val = 0;
+  //int is_mulhsu_val = 0;
+  //int dreq_and_ill_val = 0;
+  //int irq_and_dreq_val = 0;
+  //int irq_dreq_trig_ill_val = 0;
+  //int irq_dreq_trig_cebreak_val = 0;
+  //int irq_dreq_trig_ebreak_val = 0;
+  //int irq_dreq_trig_branch_val = 0;
+  //int irq_dreq_trig_multicycle_val = 0;
+  //int csr_access_val = 0;
+  //int op_read_val = 0;
+  //int op_write_val = 0;
+  //int addr_dcsr_val = 0;
+  //int addr_dpc_val = 0;
+  //int addr_dscratch0_val = 0;
+  //int addr_dscratch1_val = 0;
+  //int d_dres_access0_val = 0;
+  //int d_dres_access1_val = 0;
+  //int d_dres_access2_val = 0;
+  //int d_dres_access3_val = 0;
+  //int d_dres_access4_val = 0;
+  //int d_dres_access5_val = 0;
+  //int d_dres_access6_val = 0;
+  //int d_dres_access7_val = 0;
+  //int m_dres_access0_val = 0;
+  //int m_dres_access1_val = 0;
+  //int m_dres_access2_val = 0;
+  //int m_dres_access3_val = 0;
+  //int m_dres_access4_val = 0;
+  //int m_dres_access5_val = 0;
+  //int m_dres_access6_val = 0;
+  //int m_dres_access7_val = 0;
+  //int addr_trigger_regs0_val = 0;
+  //int addr_trigger_regs1_val = 0;
+  //int addr_trigger_regs2_val = 0;
+  //int addr_trigger_regs3_val = 0;
+  //int addr_trigger_regs4_val = 0;
+  //int tregs_access0_val = 0;
+  //int tregs_access1_val = 0;
+  //int tregs_access2_val = 0;
+  //int tregs_access3_val = 0;
+  //int tregs_access4_val = 0;
+  //int tregs_access5_val = 0;
+  //int tregs_access6_val = 0;
+  //int tregs_access7_val = 0;
+  //int tregs_access8_val = 0;
+  //int tregs_access9_val = 0;
+  //int mcycle_en_val = 0;
+  //int minstret_en_val = 0;
+  //int state_reset_val = 0;
+  //int dbg_at_reset_val = 0;
+  //int fence_i_val = 0;
+  //int fence_in_debug_val = 0;
+  //int trig_vs_ebreak_val = 0;
+  //int trig_vs_cebreak_val = 0;
+  //int trig_vs_dbg_req_val = 0;
+  //int trig_vs_step_val = 0;
+  //int ebreak_vs_req_val = 0;
+  //int cebreak_vs_req_val = 0;
+  //int ebreak_vs_step_val = 0;
+  //int cebreak_cs_step_val = 0;
+  //int dbg_req_vs_step_val = 0;
+
   while (1) begin
     @(cntxt.debug_cov_vif.mon_cb);
+
+    //if(`SEED_SELECTOR == 1) begin
+        //if(cntxt.debug_cov_vif.mon_cb.is_cebreak) begin cebreak_val = 1; end else begin cebreak_val = 0; end
+        //if(cntxt.debug_cov_vif.mon_cb.dcsr_q[15]) begin ebreakm_set_val = 1; ebreakm_clear_val = 0; end else begin ebreakm_set_val = 0; ebreakm_clear_val = 1; end
+        //if(cntxt.debug_cov_vif.mon_cb.debug_mode_q) begin debug_mode_q_val = 1; machine_mode_q_val = 0; end else begin debug_mode_q_val = 0; machine_mode_q_val = 1; end
+        //if(cntxt.debug_cov_vif.mon_cb.is_cebreak && cntxt.debug_cov_vif.mon_cb.dcsr_q[15]) begin cebreak_with_ebreakm_val = 1; end else begin cebreak_with_ebreakm_val = 0; end
+        //if(cntxt.debug_cov_vif.mon_cb.is_cebreak && cntxt.debug_cov_vif.mon_cb.debug_mode_q) begin cebreak_in_debug_val = 1; end else begin cebreak_in_debug_val = 0; end
+        //if(cntxt.debug_cov_vif.mon_cb.is_ebreak) begin ebreak_val = 1; end else begin ebreak_val = 0; end
+        //if(cntxt.debug_cov_vif.mon_cb.is_ebreak && cntxt.debug_cov_vif.mon_cb.dcsr_q[15]) begin ebreak_with_ebreakm_val = 1; end else begin ebreak_with_ebreakm_val = 0; end
+        //if(cntxt.debug_cov_vif.mon_cb.is_ebreak && cntxt.debug_cov_vif.mon_cb.debug_mode_q) begin ebreak_in_debug_val = 1; end else begin ebreak_in_debug_val = 0; end
+        //if(cntxt.debug_cov_vif.mon_cb.dcsr_q[2]) begin step_val = 1; no_step_val = 0; end else begin step_val = 0; no_step_val = 1; end
+        //if((cntxt.debug_cov_vif.mon_cb.dcsr_q[2]) && !(cntxt.debug_cov_vif.mon_cb.debug_mode_q)) begin step_no_dbg_val = 1; end else begin step_no_dbg_val = 0; end
+        //if((cntxt.debug_cov_vif.mon_cb.is_ebreak) && !(cntxt.debug_cov_vif.mon_cb.dcsr_q[15]) && !(cntxt.debug_cov_vif.mon_cb.dcsr_q[2])) begin ebreak_regular_nodebug_val = 1; end else begin ebreak_regular_nodebug_val = 0; end
+        //if((cntxt.debug_cov_vif.mon_cb.is_ebreak) && !(cntxt.debug_cov_vif.mon_cb.dcsr_q[15]) && (cntxt.debug_cov_vif.mon_cb.dcsr_q[2])) begin ebreak_step_nodebug_val = 1; end else begin ebreak_step_nodebug_val = 0; end
+        //if((cntxt.debug_cov_vif.mon_cb.is_cebreak) && !(cntxt.debug_cov_vif.mon_cb.dcsr_q[15]) && !(cntxt.debug_cov_vif.mon_cb.dcsr_q[2])) begin cebreak_regular_nodebug_val = 1; end else begin cebreak_regular_nodebug_val = 0; end
+        //if((cntxt.debug_cov_vif.mon_cb.is_cebreak) && !(cntxt.debug_cov_vif.mon_cb.dcsr_q[15]) && (cntxt.debug_cov_vif.mon_cb.dcsr_q[2])) begin cebreak_step_nodebug_val = 1; end else begin cebreak_step_nodebug_val = 0; end
+        //if(cntxt.debug_cov_vif.mon_cb.tdata1[2]) begin trigger_val = 1; trigger_dis_val = 0; end else begin trigger_val = 0; trigger_dis_val = 1; end
+        //if(cntxt.debug_cov_vif.mon_cb.trigger_match_i) begin trigger_match_val = 1; end else begin trigger_match_val = 0; end
+        //if(!(cntxt.debug_cov_vif.mon_cb.trigger_match_i)) begin trigger_no_match_val = 1; end else begin trigger_no_match_val = 0; end
+        //if((cntxt.debug_cov_vif.mon_cb.tdata1[2]) && (cntxt.debug_cov_vif.mon_cb.trigger_match_i)) begin ok_match_val = 1; end else begin ok_match_val = 0; end
+        //if(cntxt.debug_cov_vif.mon_cb.addr_match) begin addr_match_val = 1; end else begin addr_match_val = 0; end
+        //if(!(cntxt.debug_cov_vif.mon_cb.tdata1[2]) && (cntxt.debug_cov_vif.mon_cb.addr_match) && !(cntxt.debug_cov_vif.mon_cb.debug_mode_q)) begin m_match_without_en_val = 1; end else begin m_match_without_en_val = 0; end
+        //if(!(cntxt.debug_cov_vif.mon_cb.tdata1[2]) && (cntxt.debug_cov_vif.mon_cb.addr_match) && (cntxt.debug_cov_vif.mon_cb.debug_mode_q)) begin d_match_without_en_val = 1; end else begin d_match_without_en_val = 0; end
+        //if((cntxt.debug_cov_vif.mon_cb.tdata1[2]) && (cntxt.debug_cov_vif.mon_cb.addr_match) && (cntxt.debug_cov_vif.mon_cb.debug_mode_q)) begin d_match_with_en_val = 1; end else begin d_match_with_en_val = 0; end
+        //if(cntxt.debug_cov_vif.mon_cb.illegal_insn_q) begin illegal_insn_q_val = 1; end else begin illegal_insn_q_val = 0; end
+        //if((cntxt.debug_cov_vif.mon_cb.debug_mode_q) && (cntxt.debug_cov_vif.mon_cb.illegal_insn_q)) begin ex_in_debug_illegal_val = 1; end else begin ex_in_debug_illegal_val = 0; end
+        //if(cntxt.debug_cov_vif.mon_cb.ecall_insn_i) begin ecall_insn_i_val = 1; end else begin ecall_insn_i_val = 0; end
+        //if((cntxt.debug_cov_vif.mon_cb.debug_mode_q) && (cntxt.debug_cov_vif.mon_cb.ecall_insn_i)) begin ex_in_debug_ecall_val = 1; end else begin ex_in_debug_ecall_val = 0; end
+        //if(cntxt.debug_cov_vif.mon_cb.irq_i) begin irq_i_val = 1; end else begin irq_i_val = 0; end
+        //if((cntxt.debug_cov_vif.mon_cb.debug_mode_q) && (cntxt.debug_cov_vif.mon_cb.irq_i)) begin ex_in_debug_irq_val = 1; end else begin ex_in_debug_irq_val = 0; end
+        //if(cntxt.debug_cov_vif.mon_cb.is_wfi) begin is_wfi_val = 1; end else begin is_wfi_val = 0; end
+        //if((cntxt.debug_cov_vif.mon_cb.is_wfi) && (cntxt.debug_cov_vif.mon_cb.debug_mode_q)) begin dm_wfi_debug_val = 1; end else begin dm_wfi_debug_val = 0; end
+        //if(cntxt.debug_cov_vif.mon_cb.in_wfi) begin in_wfi_val = 1; end else begin in_wfi_val = 0; end
+        //if(cntxt.debug_cov_vif.mon_cb.debug_req_i) begin debug_req_i_val = 1; end else begin debug_req_i_val = 0; end
+        //if((cntxt.debug_cov_vif.mon_cb.in_wfi) && (cntxt.debug_cov_vif.mon_cb.debug_req_i)) begin dm_wfi_req_val = 1; end else begin dm_wfi_req_val = 0; end
+        //if(cntxt.debug_cov_vif.mon_cb.illegal_insn_i) begin illegal_insn_i_val = 1; end else begin illegal_insn_i_val = 0; end
+        //if(cntxt.debug_cov_vif.mon_cb.dpc_will_hit) begin dpc_will_hit_val = 1; end else begin dpc_will_hit_val = 0; end
+        //if(cntxt.debug_cov_vif.mon_cb.dcsr_q[11]) begin stepie_val = 1; end else begin stepie_val = 0; end
+        //if((cntxt.debug_cov_vif.mon_cb.dcsr_q[2]) && !(cntxt.debug_cov_vif.mon_cb.debug_mode_q)) begin mmode_step_val = 1; end else begin mmode_step_val = 0; end
+        //if((cntxt.debug_cov_vif.mon_cb.dcsr_q[2]) && !(cntxt.debug_cov_vif.mon_cb.debug_mode_q) && (cntxt.debug_cov_vif.mon_cb.trigger_match_i)) begin mmode_step_trigger_match_val = 1; end else begin mmode_step_trigger_match_val = 0; end
+        //if((cntxt.debug_cov_vif.mon_cb.dcsr_q[2]) && !(cntxt.debug_cov_vif.mon_cb.debug_mode_q) && (cntxt.debug_cov_vif.mon_cb.is_wfi)) begin mmode_step_wfi_val = 1; end else begin mmode_step_wfi_val = 0; end
+        //if((cntxt.debug_cov_vif.mon_cb.dcsr_q[2]) && !(cntxt.debug_cov_vif.mon_cb.debug_mode_q) && (cntxt.debug_cov_vif.mon_cb.dcsr_q[11])) begin mmode_step_stepie_val = 1; end else begin mmode_step_stepie_val = 0; end
+        //if((cntxt.debug_cov_vif.mon_cb.dcsr_q[2]) && !(cntxt.debug_cov_vif.mon_cb.debug_mode_q) && (cntxt.debug_cov_vif.mon_cb.illegal_insn_i)) begin mmode_step_illegal_val = 1; end else begin mmode_step_illegal_val = 0; end
+        //if((cntxt.debug_cov_vif.mon_cb.dcsr_q[2]) && !(cntxt.debug_cov_vif.mon_cb.debug_mode_q) && (cntxt.debug_cov_vif.mon_cb.dpc_will_hit)) begin mmode_step_next_pc_will_match_val = 1; end else begin mmode_step_next_pc_will_match_val = 0; end
+        //if(cntxt.debug_cov_vif.mon_cb.is_dret) begin is_dret_val = 1; end else begin is_dret_val = 0; end
+        //if(!(cntxt.debug_cov_vif.mon_cb.debug_mode_q) && (cntxt.debug_cov_vif.mon_cb.is_dret)) begin dret_ex_val = 1; end else begin dret_ex_val = 0; end
+        //if((prev_debug_req_i_val == 0) && (debug_req_i_val == 1)) begin debug_req_i_trans_val = 1; end else begin debug_req_i_trans_val = 0; end
+        //if((prev_irq_i_val == 0) && (irq_i_val)) begin irq_i_trans_val = 1; end else begin irq_i_trans_val = 0; end
+        //if(cntxt.debug_cov_vif.mon_cb.branch_in_decode) begin branch_in_decode_val = 1; end else begin branch_in_decode_val = 0; end
+        //if(cntxt.debug_cov_vif.mon_cb.is_mulhsu) begin is_mulhsu_val = 1; end else begin is_mulhsu_val = 0; end
+        //if((debug_req_i_trans_val == 1) && (illegal_insn_i_val == 1)) begin dreq_and_ill_val = 1; end else begin dreq_and_ill_val = 0; end
+        //if((irq_i_trans_val == 1) && (debug_req_i_trans_val == 1)) begin irq_and_dreq_val = 1; end else begin irq_and_dreq_val = 0; end
+        //if((irq_i_trans_val == 1) && (debug_req_i_trans_val == 1) && (trigger_match_val == 1) && (illegal_insn_i_val == 1)) begin irq_dreq_trig_ill_val = 1; end else begin irq_dreq_trig_ill_val = 0; end
+        //if((irq_i_trans_val == 1) && (debug_req_i_trans_val == 1) && (trigger_match_val == 1) && (cebreak_val == 1)) begin irq_dreq_trig_cebreak_val = 1; end else begin irq_dreq_trig_cebreak_val = 0; end
+        //if((irq_i_trans_val == 1) && (debug_req_i_trans_val == 1) && (trigger_match_val == 1) && (ebreak_val == 1)) begin irq_dreq_trig_ebreak_val = 1; end else begin irq_dreq_trig_ebreak_val = 0; end
+        //if((irq_i_trans_val == 1) && (debug_req_i_trans_val == 1) && (trigger_match_val == 1) && (branch_in_decode_val == 1)) begin irq_dreq_trig_branch_val = 1; end else begin irq_dreq_trig_branch_val = 0; end
+        //if((irq_i_trans_val == 1) && (debug_req_i_trans_val == 1) && (trigger_match_val == 1) && (is_mulhsu_val == 1)) begin irq_dreq_trig_multicycle_val = 1; end else begin irq_dreq_trig_multicycle_val = 0; end
+        //if(cntxt.debug_cov_vif.mon_cb.csr_access) begin csr_access_val = 1; end else begin csr_access_val = 0; end
+        //if(cntxt.debug_cov_vif.mon_cb.csr_op) begin op_read_val = 0; op_write_val = 1; end else begin op_read_val = 1; op_write_val = 0; end
+        //if(cntxt.debug_cov_vif.mon_cb.id_stage_instr_rdata_i[31:20] == 'h7B0) begin addr_dcsr_val = 1; end else begin addr_dcsr_val = 0; end
+        //if(cntxt.debug_cov_vif.mon_cb.id_stage_instr_rdata_i[31:20] == 'h7B1) begin addr_dpc_val = 1; end else begin addr_dpc_val = 0; end
+        //if(cntxt.debug_cov_vif.mon_cb.id_stage_instr_rdata_i[31:20] == 'h7B2) begin addr_dscratch0_val = 1; end else begin addr_dscratch0_val = 0; end
+        //if(cntxt.debug_cov_vif.mon_cb.id_stage_instr_rdata_i[31:20] == 'h7B3) begin addr_dscratch1_val = 1; end else begin addr_dscratch1_val = 0; end
+        //if((debug_mode_q_val == 1) && (csr_access_val == 1) && (op_read_val == 1) && (addr_dcsr_val == 1)) begin d_dres_access0_val = 1; end else begin d_dres_access0_val = 0; end
+        //if((debug_mode_q_val == 1) && (csr_access_val == 1) && (op_read_val == 1) && (addr_dpc_val == 1)) begin d_dres_access1_val = 1; end else begin d_dres_access1_val = 0; end
+        //if((debug_mode_q_val == 1) && (csr_access_val == 1) && (op_read_val == 1) && (addr_dscratch0_val == 1)) begin d_dres_access2_val = 1; end else begin d_dres_access2_val = 0; end
+        //if((debug_mode_q_val == 1) && (csr_access_val == 1) && (op_read_val == 1) && (addr_dscratch1_val == 1)) begin d_dres_access3_val = 1; end else begin d_dres_access3_val = 0; end
+        //if((debug_mode_q_val == 1) && (csr_access_val == 1) && (op_write_val == 1) && (addr_dcsr_val == 1)) begin d_dres_access4_val = 1; end else begin d_dres_access4_val = 0; end
+        //if((debug_mode_q_val == 1) && (csr_access_val == 1) && (op_write_val == 1) && (addr_dpc_val == 1)) begin d_dres_access5_val = 1; end else begin d_dres_access5_val = 0; end
+        //if((debug_mode_q_val == 1) && (csr_access_val == 1) && (op_write_val == 1) && (addr_dscratch0_val == 1)) begin d_dres_access6_val = 1; end else begin d_dres_access6_val = 0; end
+        //if((debug_mode_q_val == 1) && (csr_access_val == 1) && (op_write_val == 1) && (addr_dscratch1_val == 1)) begin d_dres_access7_val = 1; end else begin d_dres_access7_val = 0; end
+        //if((machine_mode_q_val == 1) && (csr_access_val == 1) && (op_read_val == 1) && (addr_dcsr_val == 1)) begin m_dres_access0_val = 1; end else begin m_dres_access0_val = 0; end
+        //if((machine_mode_q_val == 1) && (csr_access_val == 1) && (op_read_val == 1) && (addr_dpc_val == 1)) begin m_dres_access1_val = 1; end else begin m_dres_access1_val = 0; end
+        //if((machine_mode_q_val == 1) && (csr_access_val == 1) && (op_read_val == 1) && (addr_dscratch0_val == 1)) begin m_dres_access2_val = 1; end else begin m_dres_access2_val = 0; end
+        //if((machine_mode_q_val == 1) && (csr_access_val == 1) && (op_read_val == 1) && (addr_dscratch1_val == 1)) begin m_dres_access3_val = 1; end else begin m_dres_access3_val = 0; end
+        //if((machine_mode_q_val == 1) && (csr_access_val == 1) && (op_write_val == 1) && (addr_dcsr_val == 1)) begin m_dres_access4_val = 1; end else begin m_dres_access4_val = 0; end
+        //if((machine_mode_q_val == 1) && (csr_access_val == 1) && (op_write_val == 1) && (addr_dpc_val == 1)) begin m_dres_access5_val = 1; end else begin m_dres_access5_val = 0; end
+        //if((machine_mode_q_val == 1) && (csr_access_val == 1) && (op_write_val == 1) && (addr_dscratch0_val == 1)) begin m_dres_access6_val = 1; end else begin m_dres_access6_val = 0; end
+        //if((machine_mode_q_val == 1) && (csr_access_val == 1) && (op_write_val == 1) && (addr_dscratch1_val == 1)) begin m_dres_access7_val = 1; end else begin m_dres_access7_val = 0; end
+        //if(cntxt.debug_cov_vif.mon_cb.id_stage_instr_rdata_i[31:20] == 'h7A0) begin addr_trigger_regs0_val = 1; end else begin addr_trigger_regs0_val = 0; end
+        //if(cntxt.debug_cov_vif.mon_cb.id_stage_instr_rdata_i[31:20] == 'h7A1) begin addr_trigger_regs1_val = 1; end else begin addr_trigger_regs1_val = 0; end
+        //if(cntxt.debug_cov_vif.mon_cb.id_stage_instr_rdata_i[31:20] == 'h7A2) begin addr_trigger_regs2_val = 1; end else begin addr_trigger_regs2_val = 0; end
+        //if(cntxt.debug_cov_vif.mon_cb.id_stage_instr_rdata_i[31:20] == 'h7A3) begin addr_trigger_regs3_val = 1; end else begin addr_trigger_regs3_val = 0; end
+        //if(cntxt.debug_cov_vif.mon_cb.id_stage_instr_rdata_i[31:20] == 'h7A4) begin addr_trigger_regs4_val = 1; end else begin addr_trigger_regs4_val = 0; end
+        //if((machine_mode_q_val == 1) && (csr_access_val == 1) && (op_read_val == 1) && (addr_trigger_regs0_val == 1)) begin tregs_access0_val = 1; end else begin tregs_access0_val = 0; end
+        //if((machine_mode_q_val == 1) && (csr_access_val == 1) && (op_read_val == 1) && (addr_trigger_regs1_val == 1)) begin tregs_access1_val = 1; end else begin tregs_access1_val = 0; end
+        //if((machine_mode_q_val == 1) && (csr_access_val == 1) && (op_read_val == 1) && (addr_trigger_regs2_val == 1)) begin tregs_access2_val = 1; end else begin tregs_access2_val = 0; end
+        //if((machine_mode_q_val == 1) && (csr_access_val == 1) && (op_read_val == 1) && (addr_trigger_regs3_val == 1)) begin tregs_access3_val = 1; end else begin tregs_access3_val = 0; end
+        //if((machine_mode_q_val == 1) && (csr_access_val == 1) && (op_read_val == 1) && (addr_trigger_regs4_val == 1)) begin tregs_access4_val = 1; end else begin tregs_access4_val = 0; end
+        //if((debug_mode_q_val == 1) && (csr_access_val == 1) && (op_write_val == 1) && (addr_trigger_regs0_val == 1)) begin tregs_access5_val = 1; end else begin tregs_access5_val = 0; end
+        //if((debug_mode_q_val == 1) && (csr_access_val == 1) && (op_write_val == 1) && (addr_trigger_regs1_val == 1)) begin tregs_access6_val = 1; end else begin tregs_access6_val = 0; end
+        //if((debug_mode_q_val == 1) && (csr_access_val == 1) && (op_write_val == 1) && (addr_trigger_regs2_val == 1)) begin tregs_access7_val = 1; end else begin tregs_access7_val = 0; end
+        //if((debug_mode_q_val == 1) && (csr_access_val == 1) && (op_write_val == 1) && (addr_trigger_regs3_val == 1)) begin tregs_access8_val = 1; end else begin tregs_access8_val = 0; end
+        //if((debug_mode_q_val == 1) && (csr_access_val == 1) && (op_write_val == 1) && (addr_trigger_regs4_val == 1)) begin tregs_access9_val = 1; end else begin tregs_access9_val = 0; end
+        //if(cntxt.debug_cov_vif.mon_cb.mcountinhibit_q[0]) begin mcycle_en_val = 1; end else begin mcycle_en_val = 0; end
+        //if(cntxt.debug_cov_vif.mon_cb.mcountinhibit_q[2]) begin minstret_en_val = 1; end else begin minstret_en_val = 0; end
+        //if(cntxt.debug_cov_vif.mon_cb.ctrl_fsm_cs == cv32e40p_pkg::RESET) begin state_reset_val = 1; end else begin state_reset_val = 0; end
+        //if((cntxt.debug_cov_vif.mon_cb.ctrl_fsm_cs == cv32e40p_pkg::RESET) && (cntxt.debug_cov_vif.mon_cb.debug_req_i)) begin dbg_at_reset_val = 1; end else begin dbg_at_reset_val = 0; end
+        //if(cntxt.debug_cov_vif.mon_cb.fence_i) begin fence_i_val = 1; end else begin fence_i_val = 0; end
+        //if((cntxt.debug_cov_vif.mon_cb.debug_mode_q) && (cntxt.debug_cov_vif.mon_cb.fence_i)) begin fence_in_debug_val = 1; end else begin fence_in_debug_val = 0; end
+        //if((trigger_match_val == 1) && (ebreak_val == 1)) begin trig_vs_ebreak_val = 1; end else begin trig_vs_ebreak_val = 0; end
+        //if((trigger_match_val == 1) && (cebreak_val == 1)) begin trig_vs_cebreak_val = 1; end else begin trig_vs_cebreak_val = 0; end
+        //if((trigger_match_val == 1) && (debug_req_i_val == 1)) begin trig_vs_dbg_req_val = 1; end else begin trig_vs_dbg_req_val = 0; end
+        //if((trigger_match_val == 1) && (step_no_dbg_val == 1)) begin trig_vs_step_val = 1; end else begin trig_vs_step_val = 0; end
+        //if((trigger_no_match_val == 1) && (ebreak_val == 1) && (debug_req_i_val == 1)) begin ebreak_vs_req_val = 1; end else begin ebreak_vs_req_val = 0; end
+        //if((trigger_no_match_val == 1) && (cebreak_val == 1) && (debug_req_i_val == 1)) begin cebreak_vs_req_val = 1; end else begin cebreak_vs_req_val = 0; end
+        //if((ebreak_val == 1) && (step_no_dbg_val == 1)) begin ebreak_vs_step_val = 1; end else begin ebreak_vs_step_val = 0; end
+        //if((cebreak_val == 1) && (step_no_dbg_val == 1)) begin cebreak_cs_step_val = 1; end else begin cebreak_cs_step_val = 0; end
+        //if((debug_req_i_val == 1) && (step_no_dbg_val == 1)) begin dbg_req_vs_step_val = 1; end else begin dbg_req_vs_step_val = 0; end
+        //prev_debug_req_i_val = debug_req_i_val;
+        //prev_irq_i_val = irq_i_val;
+
+        //`uvm_info("DEBUG_COVG",$psprintf("-------------------------------------------------------------------------------"), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("#######  cg_cebreak_execute_with_ebreakm  #######"), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("ex                              : %d", cebreak_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("ebreakm_set                     : %d", ebreakm_set_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("dm                              : %d", debug_mode_q_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("cebreak_with_ebreakm            : %d", cebreak_with_ebreakm_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("cebreak_in_debug                : %d", cebreak_in_debug_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("#######  cg_cebreak_execute_without_ebreakm  #######"), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("ex                              : %d", cebreak_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("ebreakm_clear                   : %d", ebreakm_clear_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("step                            : %d", step_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("no_step                         : %d", no_step_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("cebreak_regular_nodebug         : %d", cebreak_regular_nodebug_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("cebreak_step_nodebug            : %d", cebreak_step_nodebug_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("#######  cg_counters_enabled                 #######"), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("mcycle_en                       : %d", mcycle_en_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("minstret_en                     : %d", minstret_en_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("#######  cg_debug_at_reset                   #######"), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("state                           : %d", state_reset_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("dbg                             : %d", debug_req_i_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("dbg_at_reset                    : %d", dbg_at_reset_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("#######  cg_debug_causes                     #######"), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("tmatch                          : %d", trigger_match_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("tnomatch                        : %d", trigger_no_match_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("ebreak                          : %d", ebreak_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("cebreak                         : %d", cebreak_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("dbg_req                         : %d", debug_req_i_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("step                            : %d", step_no_dbg_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("trig_vs_ebreak                  : %d", trig_vs_ebreak_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("trig_vs_cebreak                 : %d", trig_vs_cebreak_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("trig_vs_dbg_req                 : %d", trig_vs_dbg_req_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("trig_vs_step                    : %d", trig_vs_step_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("ebreak_vs_req                   : %d", ebreak_vs_req_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("cebreak_vs_req                  : %d", cebreak_vs_req_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("ebreak_vs_step                  : %d", ebreak_vs_step_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("cebreak_cs_step                 : %d", cebreak_cs_step_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("dbg_req_vs_step                 : %d", dbg_req_vs_step_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("#######  cg_debug_mode_ecall                 #######"), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("dm                              : %d", debug_mode_q_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("ill                             : %d", ecall_insn_i_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("ex_in_debug                     : %d", ex_in_debug_ecall_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("#######  cg_debug_mode_exception             #######"), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("dm                              : %d", debug_mode_q_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("ill                             : %d", illegal_insn_q_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("ex_in_debug                     : %d", ex_in_debug_illegal_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("#######  cg_debug_regs_d_mode                #######"), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("mode                            : %d", debug_mode_q_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("access                          : %d", csr_access_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("op_read                         : %d", op_read_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("op_write                        : %d", op_write_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("addr_dcsr                       : %d", addr_dcsr_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("addr_dpc                        : %d", addr_dpc_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("addr_dscratch0                  : %d", addr_dscratch0_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("addr_dscratch1                  : %d", addr_dscratch1_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("M,hit,read,dscr                 : %d", d_dres_access0_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("M,hit,read,dpc                  : %d", d_dres_access1_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("M,hit,read,dscratch0            : %d", d_dres_access2_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("M,hit,read,dscratch1            : %d", d_dres_access3_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("M,hit,write,dscr                : %d", d_dres_access4_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("M,hit,write,dpc                 : %d", d_dres_access5_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("M,hit,write,dscratch0           : %d", d_dres_access6_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("M,hit,write,dscratch1           : %d", d_dres_access7_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("#######  cg_debug_regs_m_mode                #######"), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("mode                            : %d", machine_mode_q_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("access                          : %d", csr_access_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("op_read                         : %d", op_read_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("op_write                        : %d", op_write_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("addr_dcsr                       : %d", addr_dcsr_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("addr_dpc                        : %d", addr_dpc_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("addr_dscratch0                  : %d", addr_dscratch0_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("addr_dscratch1                  : %d", addr_dscratch1_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("M,hit,read,dscr                 : %d", m_dres_access0_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("M,hit,read,dpc                  : %d", m_dres_access1_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("M,hit,read,dscratch0            : %d", m_dres_access2_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("M,hit,read,dscratch1            : %d", m_dres_access3_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("M,hit,write,dscr                : %d", m_dres_access4_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("M,hit,write,dpc                 : %d", m_dres_access5_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("M,hit,write,dscratch0           : %d", m_dres_access6_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("M,hit,write,dscratch1           : %d", m_dres_access7_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("#######  cg_ebreak_execute_with_ebreakm      #######"), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("ex                              : %d", ebreak_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("ebreakm_set                     : %d", ebreakm_set_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("dm                              : %d", debug_mode_q_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("ebreak_with_ebreakm             : %d", ebreak_with_ebreakm_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("ebreak_in_debug                 : %d", ebreak_in_debug_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("#######  cg_ebreak_execute_without_ebreakm   #######"), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("ex                              : %d", ebreak_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("ebreakm_clear                   : %d", ebreakm_clear_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("step                            : %d", step_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("no_step                         : %d", no_step_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("ebreak_regular_nodebug          : %d", ebreak_regular_nodebug_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("ebreak_step_nodebug             : %d", ebreak_step_nodebug_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("#######  cg_fence_in_debug                   #######"), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("mode                            : %d", debug_mode_q_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("fence                           : %d", fence_i_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("fence_in_debug                  : %d", fence_in_debug_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("#######  cg_irq_dreq                         #######"), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("dreq                            : %d", debug_req_i_trans_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("irq                             : %d", irq_i_trans_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("trigger                         : %d", trigger_match_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("ill                             : %d", illegal_insn_i_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("ebreak                          : %d", ebreak_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("cebreak                         : %d", cebreak_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("branch                          : %d", branch_in_decode_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("mulhsu                          : %d", is_mulhsu_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("dreq_and_ill                    : %d", dreq_and_ill_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("irq_and_dreq                    : %d", irq_and_dreq_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("irq_dreq_trig_ill               : %d", irq_dreq_trig_ill_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("irq_dreq_trig_cebreak           : %d", irq_dreq_trig_cebreak_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("irq_dreq_trig_ebreak            : %d", irq_dreq_trig_ebreak_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("irq_dreq_trig_branch            : %d", irq_dreq_trig_branch_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("irq_dreq_trig_multicycle        : %d", irq_dreq_trig_multicycle_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("#######  cg_irq_in_debug                     #######"), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("dm                              : %d", debug_mode_q_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("irq                             : %d", irq_i_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("ex_in_debug                     : %d", ex_in_debug_irq_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("#######  cg_mmode_dret                       #######"), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("mmode                           : %d", machine_mode_q_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("dret_ins                        : %d", is_dret_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("mmode                           : %d", dret_ex_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("#######  cg_single_step                      #######"), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("step                            : %d", step_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("mmode                           : %d", machine_mode_q_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("trigger                         : %d", trigger_match_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("iswfi                           : %d", is_wfi_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("ill                             : %d", illegal_insn_i_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("pc_will_trig                    : %d", dpc_will_hit_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("stepie                          : %d", stepie_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("mmode_step                      : %d", mmode_step_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("mmode_step_trigger_match        : %d", mmode_step_trigger_match_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("mmode_step_wfi                  : %d", mmode_step_wfi_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("mmode_step_stepie               : %d", mmode_step_stepie_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("mmode_step_illegal              : %d", mmode_step_illegal_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("mmode_step_next_pc_will_match   : %d", mmode_step_next_pc_will_match_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("#######  cg_trigger_match                    #######"), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("en                              : %d", trigger_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("match                           : %d", trigger_match_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("ok_match                        : %d", ok_match_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("#######  cg_trigger_match_disabled           #######"), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("dis                             : %d", trigger_dis_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("en                              : %d", trigger_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("match                           : %d", addr_match_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("mmode                           : %d", machine_mode_q_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("dmode                           : %d", debug_mode_q_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("m_match_without_en              : %d", m_match_without_en_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("d_match_without_en              : %d", d_match_without_en_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("d_match_with_en                 : %d", d_match_with_en_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("#######  cg_trigger_regs                     #######"), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("auto[0]                         : %d", machine_mode_q_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("auto[1]                         : %d", debug_mode_q_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("access                          : %d", csr_access_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("op_read                         : %d", op_read_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("op_write                        : %d", op_write_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("addr_tsel                       : %d", addr_trigger_regs0_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("addr_tdata1                     : %d", addr_trigger_regs1_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("addr_tdata2                     : %d", addr_trigger_regs2_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("addr_tdata3                     : %d", addr_trigger_regs3_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("addr_tinfo                      : %d", addr_trigger_regs4_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("auto[0],hit,read,tsel           : %d", tregs_access0_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("auto[0],hit,read,tdata1         : %d", tregs_access1_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("auto[0],hit,read,tdata2         : %d", tregs_access2_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("auto[0],hit,read,tdata3         : %d", tregs_access3_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("auto[0],hit,read,tinfo          : %d", tregs_access4_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("auto[1],hit,read,tsel           : %d", tregs_access5_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("auto[1],hit,read,tdata1         : %d", tregs_access6_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("auto[1],hit,read,tdata2         : %d", tregs_access7_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("auto[1],hit,read,tdata3         : %d", tregs_access8_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("auto[1],hit,read,tinfo          : %d", tregs_access9_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("#######  cg_wfi_debug_req                    #######"), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("inwfi                           : %d", in_wfi_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("dreq                            : %d", debug_req_i_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("dm_wfi                          : %d", dm_wfi_req_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("#######  cg_wfi_in_debug                     #######"), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("iswfi                           : %d", is_wfi_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("dm                              : %d", debug_mode_q_val), UVM_LOW)
+        //`uvm_info("DEBUG_COVG",$psprintf("dm_wfi                          : %d", dm_wfi_debug_val), UVM_LOW)
+        //`uvm_info("DEBUGCOVG", "HERE I AM 2", UVM_LOW);
+    //end
 
     cg_ebreak_execute_with_ebreakm.sample();
     cg_cebreak_execute_with_ebreakm.sample();
